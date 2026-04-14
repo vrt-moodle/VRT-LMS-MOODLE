@@ -1,0 +1,64 @@
+# =========================
+# Moodle runtime data
+# =========================
+/moodledata/
+
+# =========================
+# Moodle local config / secrets
+# =========================
+/vrt-lms-moodle/config.php
+/vrt-lms-moodle/config.local.php
+/vrt-lms-moodle/config.test.php
+
+# =========================
+# Environment files
+# =========================
+.env
+.env.*
+!.env.example
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# =========================
+# IDE / Editor
+# =========================
+.idea/
+.vscode/
+
+# =========================
+# Logs / temp / backup
+# =========================
+*.log
+*.tmp
+*.swp
+*~
+*.bak
+*.old
+
+# =========================
+# Test / runtime artifacts
+# =========================
+/vrt-lms-moodle/.phpunit.result.cache
+/vrt-lms-moodle/phpunit.xml
+
+# =========================
+# Accidental DB / archive dumps
+# =========================
+*.sql
+*.sql.gz
+*.dump
+*.dump.gz
+*.backup
+*.psql
+*.tar
+*.tar.gz
+
+# =========================
+# Optional: local docker override
+# =========================
+docker-compose.override.yml

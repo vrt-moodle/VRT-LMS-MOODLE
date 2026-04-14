@@ -1,0 +1,35 @@
+services:
+  moodle-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: moodle-web
+    ports:
+      - "5090:80"
+    volumes:
+      - ../vrt-lms-moodle:/var/www/html
+      - ../moodledata:/var/www/moodledata
+      - ./php/moodle.ini:/usr/local/etc/php/conf.d/moodle.ini
+    environment:
+      TZ: Asia/Ho_Chi_Minh
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  moodle-cron:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: moodle-cron
+    volumes:
+      - ../vrt-lms-moodle:/var/www/html
+      - ../moodledata:/var/www/moodledata
+      - ./php/moodle.ini:/usr/local/etc/php/conf.d/moodle.ini
+    environment:
+      TZ: Asia/Ho_Chi_Minh
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    command: >
+      sh -c "while true; do
+      php /var/www/html/admin/cli/cron.php;
+      sleep 60;
+      done"
