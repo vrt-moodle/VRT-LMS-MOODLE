@@ -1,0 +1,11 @@
+# Default ownership for the whole repository.
+* @vrt-moodle/ta @vrt-moodle/dev-leads
+
+# Docker and deployment ownership.
+/docker/ @vrt-moodle/devops
+/DEPLOY-CHECKLIST.md @vrt-moodle/devops
+/Moodle-Test-Deployment-Runbook.md @vrt-moodle/devops
+/SECURITY-ROTATION-CHECKLIST.md @vrt-moodle/security
+
+# Moodle core application ownership.
+/vrt-lms-moodle/ @vrt-moodle/dev-leads

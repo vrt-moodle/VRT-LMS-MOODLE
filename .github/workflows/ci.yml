@@ -1,0 +1,43 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - master
+      - develop
+      - init-source-core
+
+jobs:
+  hygiene:
+    name: Repository hygiene checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Verify required bootstrap files
+        run: |
+          test -f README.md
+          test -f DEPLOY-CHECKLIST.md
+          test -f SECURITY-ROTATION-CHECKLIST.md
+          test -f vrt-lms-moodle/config.php.example
+
+      - name: Ensure sensitive files are not tracked
+        run: |
+          if git ls-files | grep -E '(^|/)config\.php$|(^|/)\.env($|\.)|(^|/)moodledata/|\.sql$|\.dump$'; then
+            echo "Sensitive/runtime files detected in Git tracking."
+            exit 1
+          fi
+
+  docker-validate:
+    name: Docker compose validate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Validate compose file
+        working-directory: docker
+        run: docker compose config >/dev/null
